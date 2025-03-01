@@ -5,3 +5,6 @@ obj
 PublishProfiles
 *.publishproj
 
+__azurite**
+__blobstorage__
+__queuestorage__

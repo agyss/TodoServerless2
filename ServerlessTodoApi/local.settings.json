@@ -1,11 +1,12 @@
 {
-  "Host": {
-    "LocalHttpPort": 7071,
-    "CORS": "*"
-  },
   "IsEncrypted": false,
   "Values": {
-    "FUNCTIONS_WORKER_RUNTIME": "dotnet",
-    "CosmosDBConnectionString": "[Your CosmosDB Connection String]"
+    "AzureWebJobsStorage": "",
+    "FUNCTIONS_WORKER_RUNTIME": "dotnet-isolated",
+    "AzureWebJobsFeatureFlags": "EnableProxies",
+    "AZURE_FUNCTION_PROXY_DISABLE_LOCAL_CALL": true
+  },
+  "Host": {
+    "CORS": "*"
   }
 }
