@@ -8,7 +8,7 @@
 								"GET"
 							]
 						},
-						"backendUri": "http://localhost:10000/devstoreaccount1/todoserverless/index.html"
+						"backendUri": "http://azurite:10000/devstoreaccount1/devstoreaccount1/index.html"
 					},
 					"jsproxy": {
 						"matchCondition": {
@@ -17,7 +17,7 @@
 								"GET"
 							]
 						},
-						"backendUri": "http://localhost:10000/devstoreaccount1/todoserverless/js/{restOfPath}"
+						"backendUri": "http://azurite:10000/devstoreaccount1/devstoreaccount1/js/{restOfPath}"
 					}
     }
 }
