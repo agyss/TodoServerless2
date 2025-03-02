@@ -3,7 +3,6 @@
 
 	var docViewModel = {
 		documents: ko.observableArray(),
-		currentUser: ko.observable()
 	};
 
 	var apiUrl = "";
@@ -15,8 +14,7 @@
 			apiUrl,
 			null,
 			function (data) {
-				docViewModel.documents = ko.observableArray(data.items);
-				docViewModel.currentUser(data.userName);
+				docViewModel.documents = ko.observableArray(data);
 				ko.applyBindings(docViewModel);
 			});
 	}
@@ -55,7 +53,7 @@
 		},
 
 		Remove: function(item) {
-			if (confirm("Mark item '" + item.ItemName + "' as completed?")) {
+			if (confirm("Mark item '" + item.itemName + "' as completed?")) {
 				AZ.Ajax.MakeAjaxCall("DELETE",
 					apiUrl + "/" + item.id,
 					null,

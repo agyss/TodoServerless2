@@ -1,6 +1,14 @@
 ﻿
 # Azure Functions Todo List Sample
 
+
+## todo: add this to documentation in a good way:
+https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio%2Ctable-storage#connection-strings
+
+
+------------------
+## Original docu:
+
 This sample demonstrates a simple single page application web frontend and Azure Functions 2.0 api backend. It uses CosmosDB to store data and Azure Active Directory for authentication.
 
 This code can be run locally (using the Azure Functions CLI and CosmosDB emulator) as well as in Azure. Instructions for both are below.

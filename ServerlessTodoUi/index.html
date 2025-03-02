@@ -7,49 +7,25 @@
 </head>
 <body>
 
-	<nav class="navbar navbar-light bg-light">
-		<a class="navbar-brand" href="#">Serverless Todo App</a>
-		<span class="navbar-text">
-			<a href="https://github.com/ssemyan/TodoServerless" target="_blank">Fork me on GitHub</a>
-		</span>
-	</nav>
-
 	<div class="container mt-5">
-		<h1 class="display-4">Serverless Todo App</h1>
-		<p class="lead text-muted">This simple ToDo application illustrates how to use serverless technology in Azure. This application uses Azure Active Directory for authentication. You can logout <a href="/.auth/logout">here</a>.</p>
-
 		<div class="row pt-5">
 			<div class="col">
-				<h3>Items ToDo for <span data-bind="text: currentUser">Unknown</span></h3>
+				<h3>Items ToDo for you</span></h3>
 			</div>
 			<div class="col text-right">
 				<button type="button" class="btn text-right" onclick="AZ.Documents.AddEdit()">+ Add New</button>
 			</div>
 		</div>
-		
-		<table class="table">
-			<thead>
-				<tr>
-					<th style="width: 40%">Item</th>
-					<th style="width: 40%">Date Added</th>
-					<th style="width: 20%">Actions</th>
-				</tr>
-			</thead>
-			<tbody style="display: none;" data-bind="visible: true">
+
+		<div>
+			<div>Shoppinglist</div>
+			<div class="d-flex flex-column">
 				<!-- ko foreach: documents -->
-				<tr>
-					<td data-bind="text: itemName"></td>
-					<td data-bind="text: (new Date(Date.parse(itemCreateDate))).toLocaleString()"></td>
-					<td>
-						<button type="button" class="btn" data-bind="click: AZ.Documents.Remove">X Mark as Done</button>
-					</td>
-				</tr>
+				<div class="border p-2" data-bind="click: AZ.Documents.Remove"><span data-bind="text: itemName"></span></div> <!-- required like this so the div is "visible" and the click is handled-->
 				<!-- /ko -->
-				<tr style="display: none;" data-bind="visible: (documents().length == 0)">
-					<td rowspan="2">No items to display</td>
-				</tr>
-			</tbody>
-		</table>
+				<div class="border p-2" style="display: none;" data-bind="visible: (documents().length == 0)" data-bind="click: AZ.Documents.Remove"><span>No items to display</span></div> <!-- required like this so the div is "visible" and the click is handled-->
+			</div>
+		</div>
 	</div>
 
 	<script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js"></script>

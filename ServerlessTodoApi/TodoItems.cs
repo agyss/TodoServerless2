@@ -3,7 +3,7 @@ using Microsoft.AspNetCore.Mvc;
 using Microsoft.Azure.Functions.Worker;
 using FromBodyAttribute = Microsoft.Azure.Functions.Worker.Http.FromBodyAttribute;
 using Microsoft.Extensions.Logging;
-using Microsoft.Azure.Functions.Worker.Http;
+using Azure.Data.Tables;
 
 namespace ServerlessTodoApi
 {
@@ -16,71 +16,54 @@ namespace ServerlessTodoApi
             _logger = logger;
         }
 
-        [Function("TodoItemAdd")]
-        public IActionResult Run([HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "todoitem")] HttpRequest req, [FromBody] TodoItem newItem)
+		public class TodoItemAddOutput {
+			[HttpResult]
+			public IActionResult Result {get; set;}
+
+			[TableOutput("MyTable")]
+			public TodoItem tableResult {get; set;}
+		}
+
+        [Function(nameof(TodoItemAdd))]
+        public TodoItemAddOutput TodoItemAdd(
+			[HttpTrigger(AuthorizationLevel.Anonymous, "post", Route = "todoitem")] HttpRequest req, 
+			[FromBody] TodoItem newItem)
         {
             _logger.LogInformation("Upserting item: " + newItem.ItemName);
-			if (string.IsNullOrEmpty(newItem.id))
+			if (string.IsNullOrEmpty(newItem.Id))
 			{
+				newItem.PartitionKey = "";
 				// New Item so add ID and date
 				_logger.LogInformation("Item is new.");
-				newItem.id = Guid.NewGuid().ToString();
-				newItem.ItemCreateDate = DateTime.Now;
-				newItem.ItemOwner = "Test";
+				newItem.Id = Guid.NewGuid().ToString();
+				newItem.RowKey = newItem.Id;
 			}
 
-            return new OkObjectResult(newItem);
+            return new TodoItemAddOutput() {
+				Result = new OkObjectResult(newItem),
+				tableResult = newItem
+			};
         }
       
 		// Get all items
 		[Function("TodoItemGetAll")]
 		public IActionResult GetAll(
-        [HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "todoitem")]HttpRequest req)
-        {
-			var ret = new { UserName = "Test", Items = new TodoItem[]{
-				new TodoItem() {
-					id = "1",
-					ItemCreateDate = DateTime.Now,
-					ItemName = "Test"
-				}
-			}};
-
-			return new OkObjectResult(ret);
-		}
+			[HttpTrigger(AuthorizationLevel.Anonymous, "get", Route = "todoitem")] HttpRequest req,
+			[TableInput("MyTable")] IEnumerable<TodoItem> todoItems
+		) => new OkObjectResult(todoItems.ToArray());
         
-		// // Delete item by id
-		// [Function("TodoItemDelete")]
-		// public async Task<HttpResponseMessage> DeleteItem(
-		//    [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "todoitem/{id}")]HttpRequestMessage req,
-		//    [CosmosDB("ServerlessTodo", "TodoItems", ConnectionStringSetting = "CosmosDBConnectionString")] DocumentClient client, string id,
-        //    ILogger log,
-        //    ClaimsPrincipal principal)
-		// {
-		// 	var currentUser = GetCurrentUserName(log, principal);
-		// 	log.LogInformation("Deleting document with ID " + id + " for user " + currentUser.UniqueName);
-
-		// 	Uri documentUri = UriFactory.CreateDocumentUri("ServerlessTodo", "TodoItems", id);
-
-		// 	try
-		// 	{
-		// 		// Verify the user owns the document and can delete it
-    	// 		await client.DeleteDocumentAsync(documentUri, new RequestOptions() { PartitionKey = new PartitionKey(currentUser.UniqueName) });
-		// 	}
-		// 	catch (DocumentClientException ex)
-		// 	{
-		// 		if (ex.StatusCode == HttpStatusCode.NotFound)
-		// 		{
-		// 			// Document does not exist, is not owned by the current user, or was already deleted
-		// 			log.LogInformation("Document with ID: " + id + " not found.");
-		// 		}
-		// 		else
-		// 		{
-		// 			// Something else happened
-		// 			throw ex;
-		// 		}
-		// 	}
-
-		// 	return req.CreateResponse(HttpStatusCode.NoContent);
-		// }
+		// Delete item by id
+		[Function(nameof(TodoItemDelete))]
+		public async Task<IActionResult> TodoItemDelete(
+		   [HttpTrigger(AuthorizationLevel.Anonymous, "delete", Route = "todoitem/{id}")]HttpRequestMessage req, string id,
+		   [TableInput("MyTable")] TableClient mytable)
+		{
+			try {
+				await mytable.DeleteEntityAsync("", id);
+			} catch(Exception ex) {
+				_logger.LogWarning($"An error occured during deletion: {ex.Message}");
+			}
+			return new NoContentResult();
+		}
     }
 }
