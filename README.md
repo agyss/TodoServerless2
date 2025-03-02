@@ -4,7 +4,8 @@
 
 ## todo: add this to documentation in a good way:
 https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio%2Ctable-storage#connection-strings
-
+https://athen.tech/how-to-upload-files-to-azure-blob-storage-using-azure-functions/
+https://github.com/juunas11/IsolatedFunctionsAuthentication/blob/main/IsolatedFunctionAuth/Middleware/AuthenticationMiddleware.cs
 
 ------------------
 ## Original docu:
