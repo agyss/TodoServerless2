@@ -5,7 +5,14 @@
 ## todo: add this to documentation in a good way:
 https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio%2Ctable-storage#connection-strings
 https://athen.tech/how-to-upload-files-to-azure-blob-storage-using-azure-functions/
+
+#### Authenticaiton could be done like this:
 https://github.com/juunas11/IsolatedFunctionsAuthentication/blob/main/IsolatedFunctionAuth/Middleware/AuthenticationMiddleware.cs
+https://github.com/juunas11/IsolatedFunctionsAuthentication/issues/5
+
+#### other ideas:
+https://stackoverflow.com/questions/77120154/how-to-add-middleware-in-azure-httptrigger-functions-in-process-function-app
+https://medium.com/@neer.s/how-to-create-custom-authentication-middleware-in-net-core-7-1a7ef57dbf0c
 
 ------------------
 ## Original docu:
