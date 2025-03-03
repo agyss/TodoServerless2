@@ -6,6 +6,14 @@
 https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio%2Ctable-storage#connection-strings
 https://athen.tech/how-to-upload-files-to-azure-blob-storage-using-azure-functions/
 
+### authorization with msal:
+https://learn.microsoft.com/en-us/javascript/api/overview/msal-overview?view=msal-js-latest
+https://github.com/AzureAD/microsoft-authentication-library-for-js/tree/dev/samples/msal-browser-samples/VanillaJSTestApp2.0/app
+
+https://briantjackett.com/2018/05/01/calling-azure-ad-secured-azure-function-externally-from-javascript/
+https://learn.microsoft.com/en-us/samples/azure-samples/ms-identity-ciam-javascript-tutorial/ms-identity-ciam-javascript-tutorial-0-sign-in-vanillajs/
+
+
 #### Authenticaiton could be done like this:
 https://github.com/juunas11/IsolatedFunctionsAuthentication/blob/main/IsolatedFunctionAuth/Middleware/AuthenticationMiddleware.cs
 https://github.com/juunas11/IsolatedFunctionsAuthentication/issues/5

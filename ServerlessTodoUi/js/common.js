@@ -1,6 +1,8 @@
 ﻿// Global Namespace
 var AZ = {};
 
+Cookies.set('name', 'value')
+
 AZ.Ajax = (function () {
     "use strict";
 
@@ -31,6 +33,9 @@ AZ.Ajax = (function () {
                 data: data,
                 contentType: "application/json; charset=utf-8",
                 dataType: "json",
+                headers: {
+                    'Authorization': "Basic " + Cookies.get('name')
+                },
                 success: successFunc,
                 error: handleBasicError
             });
