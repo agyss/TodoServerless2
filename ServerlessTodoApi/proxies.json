@@ -18,6 +18,15 @@
 							]
 						},
 						"backendUri": "http://azurite:10000/devstoreaccount1/devstoreaccount1/js/{restOfPath}"
+					},
+					"cssproxy": {
+						"matchCondition": {
+							"route": "/css/{*restOfPath}",
+							"methods": [
+								"GET"
+							]
+						},
+						"backendUri": "http://azurite:10000/devstoreaccount1/devstoreaccount1/css/{restOfPath}"
 					}
     }
 }
