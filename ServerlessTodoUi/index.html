@@ -16,9 +16,8 @@
  <head>
      <meta charset="UTF-8">
      <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit=no">
-     <title>Microsoft identity platform</title>
-     <link rel="SHORTCUT ICON" href="./favicon.svg" type="image/x-icon">
-     <link rel="stylesheet" href="./css/styles.css">
+     <title>TodoLit with SignIn</title>
+     <link rel="stylesheet" href="habschertodolist/css/styles.css">
 
      <!-- adding Bootstrap 5 for UI components  -->
      <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/css/bootstrap.min.css" rel="stylesheet"
@@ -30,31 +29,38 @@
 
  <body>
      <nav class="navbar navbar-expand-sm navbar-dark bg-primary navbarStyle">
-         <a class="navbar-brand" href="/">Microsoft identity platform</a>
+         <a class="navbar-brand" href="/">TodoLit with SignIn</a>
          <div class="navbar-collapse justify-content-end">
              <button type="button" id="signIn" class="btn btn-secondary" onclick="signIn()">Sign-in</button>
              <button type="button" id="signOut" class="btn btn-success d-none" onclick="signOut()">Sign-out</button>
          </div>
      </nav>
      <br>
-     <h5 id="title-div" class="card-header text-center">JavaScript single-page application secured with MSAL.js
-     </h5>
+     <h5 id="title-div" class="card-header text-center">TodoLit with SignIn</h5>
      <h5 id="welcome-div" class="card-header text-center d-none"></h5>
      <br>
-     <div class="table-responsive-ms" id="table">
-         <table id="table-div" class="table table-striped d-none">
-             <thead id="table-head-div">
-                 <tr>
-                     <th>Claim Type</th>
-                     <th>Value</th>
-                     <th>Description</th>
-                 </tr>
-             </thead>
-             <tbody id="table-body-div">
-             </tbody>
-         </table>
-     </div>
-     <!-- importing bootstrap.js and supporting js libraries -->
+     <div class="container mt-5">
+		<div class="row pt-5">
+			<div class="col">
+				<h3>Items ToDo for you</span></h3>
+			</div>
+			<div class="col text-right">
+				<button type="button" class="btn text-right" onclick="AZ.Documents.AddEdit()">+ Add New</button>
+			</div>
+		</div>
+
+		<div>
+			<div>Shoppinglist</div>
+			<div class="d-flex flex-column">
+				<!-- ko foreach: documents -->
+				<div class="border p-2" data-bind="click: AZ.Documents.Remove"><span data-bind="text: itemName"></span></div> <!-- required like this so the div is "visible" and the click is handled-->
+				<!-- /ko -->
+				<div class="border p-2" style="display: none;" data-bind="visible: (documents().length == 0)" data-bind="click: AZ.Documents.Remove"><span>No items to display</span></div> <!-- required like this so the div is "visible" and the click is handled-->
+			</div>
+		</div>
+	</div>
+
+    <!-- importing bootstrap.js and supporting js libraries -->
      <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js"
          integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous">
          </script>
@@ -64,14 +70,20 @@
      <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.2.2/dist/js/bootstrap.bundle.min.js"
          integrity="sha384-OERcA2EqjJCMA+/3y+gxIOqMEjwtxJY7qPCqsdltbNJuaOe923+mo//f6V8Qbsw3"
          crossorigin="anonymous"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/jQuery/jquery-1.9.1.min.js"></script>
+    <script src="https://ajax.aspnetcdn.com/ajax/knockout/knockout-3.4.0.js"></script>
+
 
      <!-- importing app scripts (load order is important) -->
-     <script type="text/javascript" src="./js/authConfig.js"></script>
-     <script type="text/javascript" src="./js/ui.js"></script>
-     <script type="text/javascript" src="./js/claimUtils.js"></script>
+     <script src="habschertodolist/js/vars.js"></script>
+     <script type="text/javascript" src="habschertodolist/js/authConfig.js"></script>
+     <script src="habschertodolist/js/common.js"></script>
+     <script src="habschertodolist/js/mainscript.js"></script>
+     <script type="text/javascript" src="habschertodolist/js/ui.js"></script>
      <!-- <script type="text/javascript" src="./authRedirect.js"></script> -->
      <!-- uncomment the above line and comment the line below if you would like to use the redirect flow -->
-     <script type="text/javascript" src="./js/authPopup.js"></script>
+     <script type="text/javascript" src="habschertodolist/js/authPopup.js"></script>
+
  </body>
 
  </html>

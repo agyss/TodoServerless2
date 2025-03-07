@@ -1,8 +1,6 @@
 ﻿// Global Namespace
 var AZ = {};
 
-Cookies.set('name', 'value')
-
 AZ.Ajax = (function () {
     "use strict";
 
@@ -26,19 +24,30 @@ AZ.Ajax = (function () {
 
     return {
 
-        MakeAjaxCall: function (ajaxType, ajaxUrl, data, successFunc) {
-            $.ajax({
-                type: ajaxType,
-                url: ajaxUrl,
-                data: data,
-                contentType: "application/json; charset=utf-8",
-                dataType: "json",
-                headers: {
-                    'Authorization': "Basic " + Cookies.get('name')
-                },
-                success: successFunc,
-                error: handleBasicError
-            });
+        MakeAjaxCall: function (ajaxType, ajaxUrl, data, successFunc) {			
+			myMSALObj.acquireTokenSilent(loginRequest).then(tokenResponse => {
+                var bearer = "Bearer " + tokenResponse.accessToken;
+                $.ajax({
+                    type: ajaxType,
+                    url: ajaxUrl,
+                    data: data,
+                    contentType: "application/json; charset=utf-8",
+                    dataType: "json",
+                    headers: {
+                        'Authorization': bearer
+                    },
+                    success: successFunc,
+                    error: handleBasicError
+                });
+			}).catch(async (error) => {
+				if (error) {
+                    console.log(error)
+					// fallback to interaction when silent call fails
+					return await myMSALObj.acquireTokenPopup(request);
+				}
+			
+				// handle other errors
+			})
         }
     };
 }());

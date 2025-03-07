@@ -27,6 +27,16 @@
 							]
 						},
 						"backendUri": "http://azurite:10000/devstoreaccount1/devstoreaccount1/css/{restOfPath}"
-					}
+					},
+					"signout": {
+						"matchCondition": {
+							"route": "/signout",
+							"methods": [
+								"GET"
+							]
+						},
+						"backendUri": "http://azurite:10000/devstoreaccount1/devstoreaccount1/signout.html"
+					},
+
     }
 }

@@ -1,9 +1,8 @@
 const msalConfig = {
     auth: {
-
         clientId: '4bcbea32-1d4c-41bf-b0ea-27f50bf53c6a', // This is the ONLY mandatory field that you need to supply.
         authority: 'https://login.microsoftonline.com/6634543b-74c4-44ec-90b2-0ae4de660067', // Replace the placeholder with your tenant info
-       redirectUri: '/', // You must register this URI on App Registration. Defaults to window.location.href e.g. http://localhost:3000/
+        redirectUri: '/', // You must register this URI on App Registration. Defaults to window.location.href e.g. http://localhost:3000/
         navigateToLoginRequestUrl: true, // If "true", will navigate back to the original request location before processing the auth code response.
     },
     cache: {
@@ -35,6 +34,7 @@ const msalConfig = {
     },
 };
 
+
 /**
 * Scopes you add here will be prompted for user consent during sign-in.
 * By default, MSAL.js will add OIDC scopes (openid, profile, email) to any login request.
@@ -42,7 +42,7 @@ const msalConfig = {
 * https://learn.microsoft.com/en-us/entra/identity-platform/permissions-consent-overview#openid-connect-scopes
 */
 const loginRequest = {
-    scopes: [],
+    scopes: ["2800416f-c22f-43b3-b225-0f197b556316/User"],
 };
 
 /**
@@ -54,3 +54,5 @@ const loginRequest = {
 //   scopes: ["openid", "profile"],
 //   loginHint: "example@domain.net"
 // };
+
+const myMSALObj = new msal.PublicClientApplication(msalConfig);

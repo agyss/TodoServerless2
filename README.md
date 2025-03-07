@@ -2,6 +2,25 @@
 # Azure Functions Todo List Sample
 
 
+
+
+# Authenticate on the azrue function:
+https://learn.microsoft.com/en-us/azure/active-directory-b2c/configure-authentication-sample-spa-app
+https://stackoverflow.com/questions/67421341/secure-azure-function-api-with-msal
+
+
+
+see function authentication
+
+
+
+
+
+
+
+
+
+
 ## todo: add this to documentation in a good way:
 https://learn.microsoft.com/en-us/azure/storage/common/storage-use-azurite?tabs=visual-studio%2Ctable-storage#connection-strings
 https://athen.tech/how-to-upload-files-to-azure-blob-storage-using-azure-functions/
@@ -21,6 +40,12 @@ https://github.com/juunas11/IsolatedFunctionsAuthentication/issues/5
 #### other ideas:
 https://stackoverflow.com/questions/77120154/how-to-add-middleware-in-azure-httptrigger-functions-in-process-function-app
 https://medium.com/@neer.s/how-to-create-custom-authentication-middleware-in-net-core-7-1a7ef57dbf0c
+
+
+###### Token validation in inbound policy:
+https://learn.microsoft.com/en-us/azure/api-management/validate-azure-ad-token-policy#simple-token-validation
+
+
 
 ------------------
 ## Original docu:

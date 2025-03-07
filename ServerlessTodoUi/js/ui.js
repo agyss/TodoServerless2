@@ -12,6 +12,7 @@ function welcomeUser(username) {
     titleDiv.classList.add('d-none');
     welcomeDiv.classList.remove('d-none');
     welcomeDiv.innerHTML = `Welcome ${username}!`;
+    AZ.Documents.GetApiData();
 };
 
 function updateTable(account) {
