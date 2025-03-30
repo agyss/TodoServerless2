@@ -4,6 +4,7 @@ using Microsoft.Azure.Functions.Worker;
 using FromBodyAttribute = Microsoft.Azure.Functions.Worker.Http.FromBodyAttribute;
 using Microsoft.Extensions.Logging;
 using Azure.Data.Tables;
+using Azure;
 
 namespace ServerlessTodoApi
 {
@@ -37,6 +38,7 @@ namespace ServerlessTodoApi
 				_logger.LogInformation("Item is new.");
 				newItem.Id = Guid.NewGuid().ToString();
 				newItem.RowKey = newItem.Id;
+				newItem.Created = DateTime.UtcNow;
 			}
 
             return new TodoItemAddOutput() {
@@ -65,5 +67,20 @@ namespace ServerlessTodoApi
 			}
 			return new NoContentResult();
 		}
+
+		[Function(nameof(UpdateTodoItem))]
+		public async Task<IActionResult> UpdateTodoItem(
+			[HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "todoitem/{id}")]HttpRequestMessage req, string id,
+		   [TableInput("MyTable")] TableClient mytable, [FromBody] TodoItem newItem) {
+				newItem.Created = DateTime.SpecifyKind(newItem.Created, DateTimeKind.Utc);
+				try {
+					await mytable.UpdateEntityAsync(newItem, ETag.All);
+				} catch(Exception ex) {
+					_logger.LogWarning($"An error occured during the update: {ex.Message}");
+				}
+
+				return new NoContentResult();
+		   }
+
     }
 }
