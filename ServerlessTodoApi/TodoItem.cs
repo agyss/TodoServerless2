@@ -18,6 +18,8 @@ namespace ServerlessTodoApi
 
         public string Id {get; }
         public string ItemName {get; set;}
+
+        public string imageUrl {get; set;}
     }
 
     public class TodoItem  : TableEntity, ITodoItem
@@ -27,6 +29,7 @@ namespace ServerlessTodoApi
 		public string ItemName { get; set; }
         public string Id { get ;  set; }
 
+        public string imageUrl { get; set; } = "";
         public DateTime Created {get; set; }
 
         public ItemState itemstate {get;set;} = ItemState.Created;
