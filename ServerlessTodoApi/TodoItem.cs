@@ -31,6 +31,7 @@ namespace ServerlessTodoApi
 
         public string imageUrl { get; set; } = "";
         public DateTime Created {get; set; }
+        public DateTime Done {get; set; }
 
         public ItemState itemstate {get;set;} = ItemState.Created;
 

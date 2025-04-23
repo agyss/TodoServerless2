@@ -73,6 +73,7 @@ namespace ServerlessTodoApi
 			[HttpTrigger(AuthorizationLevel.Anonymous, "put", Route = "todoitem/{id}")]HttpRequestMessage req, string id,
 		   [TableInput("MyTable")] TableClient mytable, [FromBody] TodoItem newItem) {
 				newItem.Created = DateTime.SpecifyKind(newItem.Created, DateTimeKind.Utc);
+				newItem.Done = DateTime.SpecifyKind(newItem.Done, DateTimeKind.Utc);
 				try {
 					await mytable.UpdateEntityAsync(newItem, ETag.All);
 				} catch(Exception ex) {
